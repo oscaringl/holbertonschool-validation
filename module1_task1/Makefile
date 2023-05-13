@@ -1,12 +1,7 @@
-HUGO=hugo
-RM=rm -rf
-
-build: 
-	$(HUGO)
-
+build:
+	hugo
 clean:
-	$(RM) dist/*
-
+	rm -rf dist/
 post:
-	$(HUGO) new posts/$(POST_NAME).md
-	sed -i '2s/.*/title: "$(POST_TITLE)"/' content/posts/$(POST_NAME).md
+	hugo new posts/$(POST_NAME).md
+	sed -i '/title:/c\title: "$(POST_TITLE)"' content/posts/$(POST_NAME).md
