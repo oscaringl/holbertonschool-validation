@@ -7,7 +7,4 @@ apt-get update && apt-get install -y hugo make
 make build
 
 # Create dist directory if it doesn't exist
-mkdir -p dist
-
-# Generate the website into dist directory
-hugo -d dist/
+mkdir -p dist/
