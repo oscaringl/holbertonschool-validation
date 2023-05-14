@@ -7,4 +7,4 @@ apt-get update && apt-get install -y hugo make
 make build
 
 # Create dist directory if it doesn't exist
-mkdir -d ./dist
+mkdir -p ./dist
