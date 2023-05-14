@@ -8,3 +8,6 @@ make build
 
 # Create dist directory if it doesn't exist
 mkdir -p dist
+
+# Generate the website into dist directory
+hugo -d dist/
