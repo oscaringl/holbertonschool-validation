@@ -1,11 +1,8 @@
-unit-tests: ## Runs unit tests in order to test the code
-	@go test -v -short -coverprofile=coverage-units.out
-
 lint: ## Runs a lint tool
 	@golangci-lint run *.go
 
-build: lint ## Generate the website from markdown
-	@hugo
+build: ## Generate the website from markdown
+	$(MAKE) lint
 	@go build -o awesome-api ./*.go
 
 run: ## Run the application
@@ -19,7 +16,6 @@ clean: stop ## Cleanup the content of the 'dist/' folder
 	@rm -f awesome-api awesome-api.log
 
 test: ## Tests the application
-	@echo "Test"
 	@if curl http://localhost:9999; then echo "\nTESTOK"; else echo "TESTFAILED"; fi
 	@if curl http://localhost:9999/health; then echo "\nTESTOK"; else echo "TESTFAILED"; fi
 
