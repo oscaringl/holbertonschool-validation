@@ -5,12 +5,12 @@ build: ## Generate the website from markdown
 run: ## Run the application
 	./awesome-api >./awesome.log 2>&1 &
 
-stop: ## Stop the app
-	@pkill awesome-api
+stop:	## Stops the application.
+	-kill "$$(pgrep awesome-api)"
 
 clean: stop ## Cleanup the content of the 'dist/' folder
-	@rm -rf dist/
-	@rm -f awesome-api awesome.log
+	-kill "$$(pgrep awesome-api)"
+	rm -rf awesome-api awesome-api.log go.sum
 
 test: ## Tests the application
 	@echo "Test"
