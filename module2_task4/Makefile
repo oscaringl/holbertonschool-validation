@@ -1,12 +1,16 @@
 build: ## Generate the website from markdown
+	./setup.sh
+	make check
 	hugo
 
 clean: ## Cleanup the content of the 'dist/' folder
-	rm -rf dist/
+	-rm -r dist/
 
 post: ## Create a new blog post using POST_TITLE and POST_NAME env variables
-	hugo new posts/$(POST_NAME).md
-	sed -i '/title:/c\title: "$(POST_TITLE)"' content/posts/$(POST_NAME).md
+	-hugo new posts/$(POST_NAME).md && echo "---\ntitle: \"$(POST_TITLE)\"\ndate: 2022-11-20T09:03:20-08:00\ndraft: false\n---" > content/posts/$(POST_NAME).md
 
-help: ## Show this help.
-	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
+validate:## Validate the index
+	-./w3c_validator.py ./dist/index.html
+
+help:## Makefile help 
+	-grep "##" Makefile | head -n -1 | tr -d '#'
