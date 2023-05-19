@@ -2,7 +2,7 @@ build: ## Generate the website from markdown
 	@go build -o awesome-api ./*.go
 
 run: ## Run the application
-	./awesome-api >./awesome.log 2>&1 &
+	./awesome-api >./awesome-api.log 2>&1 &
 
 stop: ## Stop the app
 	@pkill awesome-api
