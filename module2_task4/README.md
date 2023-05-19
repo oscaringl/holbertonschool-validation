@@ -12,6 +12,4 @@ Welcome to our site, please follow the next information in order to have a worki
 build: Build the website
 clean: Clean the website
 post: Create a new post
-check: Check if post is valid
-validate: Validate the index
 help: Makefile help
