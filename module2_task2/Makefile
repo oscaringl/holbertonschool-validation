@@ -1,33 +1,31 @@
-build:  ## Compiles source code of application to a binary file named awesome-api
-	$(MAKE) lint
-	go build -o awesome-api
+unit-tests: ## Runs unit tests in order to test the code
+	@go test -v -short -coverprofile=coverage-units.out
 
+lint: ## Runs a lint tool
+	@golangci-lint run *.go
 
-run:	## Runs the application. Writes logs into awesome-api.log
+build: lint ## Generate the website from markdown
+	@hugo
+	@go build -o awesome-api ./*.go
+
+run: ## Run the application
 	./awesome-api >./awesome-api.log 2>&1 &
 
+stop: ## Stop the app
+	@pkill awesome-api || true
 
-stop:	## Stops the application. Kills PID of application
-	-kill "$$(pgrep awesome-api)"
+clean: stop ## Cleanup the content of the 'dist/' folder
+	@rm -rf dist/
+	@rm -f awesome-api awesome-api.log
 
+test: ## Tests the application
+	@echo "Test"
+	@if curl http://localhost:9999; then echo "\nTESTOK"; else echo "TESTFAILED"; fi
+	@if curl http://localhost:9999/health; then echo "\nTESTOK"; else echo "TESTFAILED"; fi
 
-clean:	## Stops the application. Deletes awesome-api, awesome-api.log and go.sum
-	$(MAKE) stop
-	rm -rf awesome-api awesome-api.log go.sum
+post: ## Create a new blog post using POST_TITLE and POST_NAME env variables
+	hugo new posts/$(POST_NAME).md
+	sed -i '/title:/c\title: "$(POST_TITLE)"' content/posts/$(POST_NAME).md
 
-
-test:	## Curls HTTP to check if server is running
-	curl http://localhost:9999
-	curl http://localhost:9999/health
-
-
-lint: ## Checks for semantic errors
-	golangci-lint run
-
-
-unit-tests: ## Runs unit-tests
-	go test -v -short -coverprofile=coverage-units.out
-
-
-help:	## Shows help usage
-	@fgrep -h "##" $(MAKEFILE_LIST) | sed -e 's/\(\:.*\#\#\)/\:\ /' | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
+help: ## Show this help.
+	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
