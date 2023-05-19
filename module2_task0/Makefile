@@ -1,25 +1,25 @@
-build: ## Generate the website from markdown
-	@hugo
-	@go build -o awesome-api ./*.go
+build:  ## Compiles source code of application to a binary file named awesome-api
+	go build -o awesome-api
 
-run: ## Run the application
-	./awesome-api >./awesome.log 2>&1 &
 
-stop:	## Stops the application.
+run:	## Runs the application. Writes logs into awesome-api.log
+	./awesome-api >./awesome-api.log 2>&1 &
+
+
+stop:	## Stops the application. Kills PID of application
 	-kill "$$(pgrep awesome-api)"
 
-clean: stop ## Cleanup the content of the 'dist/' folder
+
+clean:	## Stops the application. Deletes awesome-api, awesome-api.log and go.sum
 	-kill "$$(pgrep awesome-api)"
 	rm -rf awesome-api awesome-api.log go.sum
 
-test: ## Tests the application
-	@echo "Test"
-	@if curl http://localhost:9999; then echo "\nTESTOK"; else echo "TESTFAILED"; fi
-	@if curl http://localhost:9999/health; then echo "\nTESTOK"; else echo "TESTFAILED"; fi
 
-post: ## Create a new blog post using POST_TITLE and POST_NAME env variables
-	hugo new posts/$(POST_NAME).md
-	sed -i '/title:/c\title: "$(POST_TITLE)"' content/posts/$(POST_NAME).md
+test:	## Curls HTTP to check if server is running
+	curl http://localhost:9999
+	curl http://localhost:9999/health
 
-help: ## Show this help.
-	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
+
+help:	## Shows help usage
+	@fgrep -h "##" $(MAKEFILE_LIST) | sed -e 's/\(\:.*\#\#\)/\:\ /' | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
+	
