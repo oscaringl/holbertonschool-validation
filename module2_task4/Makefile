@@ -1,16 +1,40 @@
-build: ## Generate the website from markdown
-	./setup.sh
-	make check
-	hugo
+integration-tests: ## 
+	@go test -v -coverprofile=coverage-integrations.out
 
-clean: ## Cleanup the content of the 'dist/' folder
-	-rm -r dist/
+unit-tests: ## Runs unit tests in order to test the code
+	@go test -v -short -coverprofile=coverage-units.out
+
+lint: ## Runs a lint tool
+	@golangci-lint run *.go
+
+check: ## Runs a lint for the md and an analysis of the links
+	@markdownlint 'content/**/*.md'
+	@find ./content -name \*.md -print0 | xargs -0 -n1 markdown-link-check
+
+validate: ## Validates the syntax of the index.html in the dist directory
+	@./w3c_validator.py ./dist/index.html || true
+
+build: lint check ## Generate the website from markdown
+	@hugo
+	@go build -o awesome-api ./*.go
+
+run: ## Run the application
+	@./awesome-api >./awesome.log 2>&1 &
+
+stop: ## Stop the app
+	@pkill awesome-api || true
+
+clean: stop ## Cleanup the content of the 'dist/' folder
+	@rm -rf dist/
+	@rm -f awesome-api awesome.log
+	@rm -f coverage-units.out coverage-integrations.out
+
+test: unit-tests integration-tests ## Tests the application
+	@echo "Test"
 
 post: ## Create a new blog post using POST_TITLE and POST_NAME env variables
-	-hugo new posts/$(POST_NAME).md && echo "---\ntitle: \"$(POST_TITLE)\"\ndate: 2022-11-20T09:03:20-08:00\ndraft: false\n---" > content/posts/$(POST_NAME).md
+	hugo new posts/$(POST_NAME).md
+	sed -i '/title:/c\title: "$(POST_TITLE)"' content/posts/$(POST_NAME).md
 
-validate:## Validate the index
-	-./w3c_validator.py ./dist/index.html
-
-help:## Makefile help 
-	-grep "##" Makefile | head -n -1 | tr -d '#'
+help: ## Show this help.
+	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
