@@ -1,6 +1,5 @@
 build: ## Generate the website from markdown
-	@hugo
-	@go build -o awesome-api
+	go build -o awesome-api
 
 run: ## Run the application
 	./awesome-api >./awesome.log 2>&1 &
