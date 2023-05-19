@@ -15,8 +15,8 @@ stop: ## Stop the app
 	-kill "$$(pgrep awesome-api)"
 
 clean: stop ## Cleanup the content of the 'dist/' folder
-	@rm -rf dist/
-	@rm -f awesome-api awesome-api.log
+	$(MAKE) stop
+	rm -rf awesome-api awesome-api.log go.sum
 
 test: ## Tests the application
 	@if curl http://localhost:9999; then echo "\nTESTOK"; else echo "TESTFAILED"; fi
