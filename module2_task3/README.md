@@ -18,3 +18,4 @@ Welcome to our site, please follow the next information in order to have a worki
 - test
 - lint
 - unit-tests
+- integration-tests
