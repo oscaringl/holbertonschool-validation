@@ -1,8 +1,6 @@
 unit-tests: ## Runs unit tests in order to test the code
 	go test -v -short -coverprofile=coverage-units.out
 
-lint: ## Runs a lint tool
-	@golangci-lint run *.go
 
 build: ## Generate the website from markdown
 	$(MAKE) lint
@@ -21,6 +19,9 @@ clean: stop ## Cleanup the content of the 'dist/' folder
 test: ## Tests the application
 	curl http://localhost:9999
 	curl http://localhost:9999/health
+
+lint: ## Checks for semantic errors
+	golangci-lint run
 
 post: ## Create a new blog post using POST_TITLE and POST_NAME env variables
 	hugo new posts/$(POST_NAME).md
