@@ -19,8 +19,8 @@ clean: stop ## Cleanup the content of the 'dist/' folder
 	rm -rf awesome-api awesome-api.log go.sum
 
 test: ## Tests the application
-	@if curl http://localhost:9999; then echo "\nTESTOK"; else echo "TESTFAILED"; fi
-	@if curl http://localhost:9999/health; then echo "\nTESTOK"; else echo "TESTFAILED"; fi
+	curl http://localhost:9999
+	curl http://localhost:9999/health
 
 post: ## Create a new blog post using POST_TITLE and POST_NAME env variables
 	hugo new posts/$(POST_NAME).md
