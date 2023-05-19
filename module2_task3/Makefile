@@ -17,8 +17,8 @@ clean: stop ## Cleanup the content of the 'dist/' folder
 
 
 test: ## Tests the application
-	curl http://localhost:9999
-	curl http://localhost:9999/health
+	$(MAKE) unit-tests
+	$(MAKE) integration-tests
 
 
 lint: ## Checks for semantic errors
