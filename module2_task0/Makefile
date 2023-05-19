@@ -9,7 +9,7 @@ stop: ## Stop the app
 
 clean: stop ## Cleanup the content of the 'dist/' folder
 	@rm -rf dist/
-	@rm -f awesome-api awesome.log
+	@rm -f awesome-api awesome-api.log
 
 test: ## Tests the application
 	@if curl http://localhost:9999; then echo "\nTESTOK"; else echo "TESTFAILED"; fi
