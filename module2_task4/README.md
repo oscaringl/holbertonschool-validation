@@ -9,7 +9,9 @@ Welcome to our site, please follow the next information in order to have a worki
 - The website is expected to be generated into ./dist folder but this folder should be **absent** from the repo.
 
 ## Lifecycle
-- post
-- build
-- clean
-- help
+build: Build the website
+clean: Clean the website
+post: Create a new post
+check: Check if post is valid
+validate: Validate the index
+help: Makefile help
