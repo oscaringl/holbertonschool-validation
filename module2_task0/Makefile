@@ -12,7 +12,6 @@ clean: stop ## Cleanup the content of the 'dist/' folder
 	@rm -f awesome-api awesome.log
 
 test: ## Tests the application
-	@echo "Test"
 	@if curl http://localhost:9999; then echo "\nTESTOK"; else echo "TESTFAILED"; fi
 	@if curl http://localhost:9999/health; then echo "\nTESTOK"; else echo "TESTFAILED"; fi
 
