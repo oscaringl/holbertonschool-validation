@@ -19,18 +19,53 @@ func Test_HelloHandler(t *testing.T) {
 		body         string
 	}{
 		{
-			name:         "Grace Hopper",
-			queryString:  "name=Grace Hopper",
+			name:         "Steve Gru",
+			queryString:  "name=Steve Gru",
 			responseCode: 200,
-			body:         "Hello Grace Hopper!",
+			body:         "Hello Steve Gru!",
 		},
 		{
-			name:         "Rosalind Franklin",
-			queryString:  "name=Rosalind Franklin",
+			name:         "King_Bob",
+			queryString:  "name=King_Bob",
 			responseCode: 200,
-			body:         "Hello Rosalind Franklin!",
+			body:         "Hello King_Bob!",
 		},
-		// INSERT MORE TESTS HERE
+		{
+			name:         "Stuart the Minion!",
+			queryString:  "name=Stuart the Minion!",
+			responseCode: 200,
+			body:         "Hello Stuart the Minion!!",
+		},
+		{
+			name:         "K3v1n th3 M1n10n",
+			queryString:  "name=K3v1n Th3 M1n10n",
+			responseCode: 200,
+			body:         "Hello K3v1n Th3 M1n10n!",
+		},
+		{
+			name:         "ShrekMyers",
+			queryString:  "name=ShrekMyers",
+			responseCode: 200,
+			body:         "Hello ShrekMyers!",
+		},
+		{
+			name:         "ThEMuFfInMaN",
+			queryString:  "name=ThEMuFfInMaN",
+			responseCode: 200,
+			body:         "Hello ThEMuFfInMaN!",
+		},
+		{
+			name:         "Boots on Puss",
+			queryString:  "name=",
+			responseCode: 400,
+			body:         "",
+		},
+		{
+			name:         "",
+			queryString:  "",
+			responseCode: 200,
+			body:         "Hello there!",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
