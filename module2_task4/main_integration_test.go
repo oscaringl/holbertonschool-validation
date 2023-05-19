@@ -1,7 +1,6 @@
 package main
 
 import (
-	//nolint:staticcheck
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
@@ -26,50 +25,28 @@ func Test_server(t *testing.T) {
 			body:         "404 page not found\n",
 		},
 		{
-			name:         "Hello page",
-			URI:          "/hello?name=Holberton",
-			responseCode: 200,
-			body:         "Hello Holberton!",
-		},
-		{
-			name:         "Hello pa ge",
-			URI:          "/hello?name=Holberton",
-			responseCode: 400,
-			body:         "400 Bad Request",
-		},
-		{
-			name:         "Empty page",
-			URI:          "",
-			responseCode: 404,
-			body:         "404 page not found\n",
-		},
-		{
-			name:         "No name",
-			URI:          "/hello?name",
-			responseCode: 400,
-		},
-		{
-			name:         "Empty name",
-			URI:          "/hello?name=",
-			responseCode: 400,
-		},
-		{
-			name:         "Health",
+			name:         "Health page",
 			URI:          "/health",
 			responseCode: 200,
 			body:         "ALIVE",
 		},
 		{
-			name:         "Home",
-			URI:          "/",
-			responseCode: 404,
-			body:         "404 page not found\n",
+			name:         "Holberton",
+			URI:          "/hello?name=Holberton",
+			responseCode: 200,
+			body:         "Hello Holberton!",
 		},
 		{
-			name:         "hello there",
+			name:         "No name",
 			URI:          "/hello",
 			responseCode: 200,
 			body:         "Hello there!",
+		},
+		{
+			name:         "Multiple names",
+			URI:          "/hello?name=Hey&name=Betty",
+			responseCode: 200,
+			body:         "Hello Betty!",
 		},
 	}
 

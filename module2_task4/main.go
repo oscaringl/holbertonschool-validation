@@ -10,36 +10,6 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func HelloHandler(w http.ResponseWriter, r *http.Request) {
-	// Extract the query parameters from the GET request
-	queryParams := r.URL.Query()
-
-	// Retrieve the query parameters with the key "name"
-	nameParams := queryParams["name"]
-
-	var name string
-	switch len(nameParams) {
-	case 0:
-		// Set the name variable to there when there is no parameter "name" in the request
-		name = "there"
-	default:
-		// Set the name variable to the first parameter "name" in the request
-		name = nameParams[0]
-	}
-
-	// Return status 400 if name is empty
-	if name == "" {
-		w.WriteHeader(400)
-		return
-	}
-
-	// Write the string "Hello <name>" into the response's body
-	_, _ = io.WriteString(w, fmt.Sprintf("Hello %s!", name))
-
-	// Print a line in the ACCESS log
-	fmt.Printf("HIT: hello handler with name %s \n", name)
-}
-
 func main() {
 	httpAddr := "0.0.0.0:9999"
 	if port := os.Getenv("PORT"); port != "" {
@@ -58,7 +28,7 @@ func setupRouter() *mux.Router {
 	// When an HTTP GET request is received on the path /health, delegates to the function "HealthCheckHandler()"
 	r.HandleFunc("/health", HealthCheckHandler).Methods("GET")
 
-	// Return hello :)
+	// when an HTTP GET request is received on the path /hello
 	r.HandleFunc("/hello", HelloHandler).Methods("GET")
 
 	return r
@@ -72,4 +42,36 @@ func HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
 	_, _ = io.WriteString(w, "ALIVE")
 
 	// End of the function: return HTTP 200 by default
+}
+
+func HelloHandler(w http.ResponseWriter, r *http.Request) {
+	// Extract the query parameters from the GET request
+	queryParams := r.URL.Query()
+
+	// Retrieve the query parameters with the key "name"
+	nameParams := queryParams["name"]
+
+	var name string
+	switch len(nameParams) {
+	case 0:
+		// Set the name variable to an empty string when there is no parameter "name" in the request
+		name = ""
+	case 1:
+		// Set the name variable to the unique parameter "name" in the request
+		name = nameParams[0]
+	default:
+		// Set the name variable to the last occurence of the parameters "name" in the request
+		name = nameParams[len(nameParams)-1]
+	}
+
+	// Set a default value if the name is empty
+	if name == "" {
+		name = "there"
+	}
+
+	// Write the string "Hello <name>" into the response's body
+	_, _ = io.WriteString(w, fmt.Sprintf("Hello %s!", name))
+
+	// Print a line in the ACCESS log
+	fmt.Printf("HIT: hello handler with name %s \n", name)
 }
