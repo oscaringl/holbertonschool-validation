@@ -16,9 +16,5 @@ test: ## Tests the application
 	curl http://localhost:9999
 	curl http://localhost:9999/health
 
-post: ## Create a new blog post using POST_TITLE and POST_NAME env variables
-	hugo new posts/$(POST_NAME).md
-	sed -i '/title:/c\title: "$(POST_TITLE)"' content/posts/$(POST_NAME).md
-
 help: ## Show this help.
 	@fgrep -h "##" $(MAKEFILE_LIST) | sed -e 's/\(\:.*\#\#\)/\:\ /' | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
