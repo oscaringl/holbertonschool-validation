@@ -21,4 +21,4 @@ post: ## Create a new blog post using POST_TITLE and POST_NAME env variables
 	sed -i '/title:/c\title: "$(POST_TITLE)"' content/posts/$(POST_NAME).md
 
 help: ## Show this help.
-	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
+	@fgrep -h "##" $(MAKEFILE_LIST) | sed -e 's/\(\:.*\#\#\)/\:\ /' | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
