@@ -1,3 +1,6 @@
+unit-tests: ## Runs unit tests in order to test the code
+	@go test -v -short -coverprofile=coverage-units.out
+
 lint: ## Runs a lint tool
 	@golangci-lint run *.go
 
