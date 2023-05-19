@@ -13,7 +13,7 @@ stop: ## Stop the app
 
 clean: stop ## Cleanup the content of the 'dist/' folder
 	$(MAKE) stop
-	rm -rf awesome-api awesome-api.log go.sum
+	rm -rf awesome-api awesome-api.log go.sum coverage-units.out coverage-integrations.out
 
 
 test: ## Tests the application
