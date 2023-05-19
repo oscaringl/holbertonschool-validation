@@ -2,6 +2,7 @@ lint: ## Runs a lint tool
 	@golangci-lint run *.go
 
 build: ## Generate the website from markdown
+	$(MAKE) lint
 	@go build -o awesome-api ./*.go
 
 run: ## Run the application
