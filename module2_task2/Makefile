@@ -6,7 +6,7 @@ lint: ## Runs a lint tool
 
 build: ## Generate the website from markdown
 	$(MAKE) lint
-	@go build -o awesome-api ./*.go
+	go build -o awesome-api
 
 run: ## Run the application
 	./awesome-api >./awesome-api.log 2>&1 &
