@@ -12,7 +12,7 @@ run: ## Run the application
 	./awesome-api >./awesome-api.log 2>&1 &
 
 stop: ## Stop the app
-	@pkill awesome-api || true
+	-kill "$$(pgrep awesome-api)"
 
 clean: stop ## Cleanup the content of the 'dist/' folder
 	@rm -rf dist/
