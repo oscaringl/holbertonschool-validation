@@ -1,19 +1,16 @@
+---
 name: module3_task1
 
-on:
+"on":  # do something on push to main
   push:
-    branches:
-      - main
   schedule:
     - cron: "0 0 * * *"
 
 jobs:
   build:
     runs-on: ubuntu-22.04
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           repository: ''
 
