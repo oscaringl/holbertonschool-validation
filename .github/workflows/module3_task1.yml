@@ -14,13 +14,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          repository: ''
 
-      - name: Setup Environment
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y wget
-          ./setup.sh
-          - run: cd module3_task1/ && ./setup.sh
+      - run: cd module3_task1/ && ./setup.sh
 
-      - name: Build
       - run: cd module3_task1/ && make help && make build
