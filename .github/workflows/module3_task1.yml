@@ -1,24 +1,19 @@
 ---
   name: module3_task1
   
-  on:
+  "on":  # do something on push to main
     push:
-      branches:
-        - main
-  
     schedule:
-      - cron: '0 0 * * *'
+      - cron: "0 0 * * *"
   
   jobs:
     build:
       runs-on: ubuntu-22.04
-  
       steps:
-        - name: Clone the repository
-          uses: actions/checkout@v3
+        - uses: actions/checkout@v3
+          with:
+            repository: ''
   
-        - name: installing Hugo
-          run: cd module3_task1 && ./setup.sh
+        - run: cd module3_task1/ && ./setup.sh
   
-        - name: validate the Makefile
-          run: cd module3_task1 && make help && make build
+        - run: cd module3_task1/ && make help && make build
