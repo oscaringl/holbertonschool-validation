@@ -45,3 +45,6 @@ validate:      ## look if the generated HTML respects the W3C syntax
 package:    ## produces a file awesome-website.zip, containing the binary awesome-api and the directory dist/ directory
 	make build
 	zip awesome-website.zip awesome-api dist/
+
+build-docker:  ## Build a docker image named awesome:build
+	docker build -t awesome:build ./.build
