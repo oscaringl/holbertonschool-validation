@@ -21,3 +21,13 @@ Welcome to our site, please follow the next information in order to have a worki
 - integration-tests
 - check
 - validate
+
+## Build Workflow
+Create a new workflow named module3_task1 with only the following steps:
+- Clone the repository,
+- Use ubuntu-22.04 as the virtual machine.
+- Position yourself in the correct directory and execute the command make help to validate that the Makefile is present and implements the help and build targets.
+
+This workflow must be triggered:
+- Each time there is new code pushed on your repository,
+- And once per day (whatever time you want).

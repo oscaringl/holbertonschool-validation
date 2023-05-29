@@ -22,8 +22,7 @@ clean:          ## Cleanup the content of the directory dist/ and stop the appli
 
 post:           ## Create a new blog post
 	hugo new posts/$(POST_NAME).md
-	sed -i 's/title: .*/title: "$(POST_TITLE)"/' content/posts/$(PO
-	ST_NAME).md
+	sed -i 's/title: .*/title: "$(POST_TITLE)"/' content/posts/$(POST_NAME).md
 
 test:          ## Tests for browser responses
 	make unit-tests
@@ -31,10 +30,10 @@ test:          ## Tests for browser responses
 	make validate
 
 unit-tests:    ## Execute (successfully) the Golang unit tests
-	go test -v -short -coverprofile=coverage-units.out
+	@go test -v -short -coverprofile=coverage-units.out
 
 integration-tests:     ## Execute (successfully) the Golang integration tests
-	go test -v -tags=integration -coverprofile=coverage-integrations.out
+	@go test -v -tags=integration -coverprofile=coverage-integrations.out
 
 check:         ## Check if there are dead link or a badly written Markdown file
 	markdownlint ./content/posts/*.md
