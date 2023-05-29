@@ -46,14 +46,5 @@ package:    ## produces a file awesome-website.zip, containing the binary awesom
 	make build
 	zip awesome-website.zip awesome-api dist/
 
-.PHONY: build-docker
-build-docker:
-	docker build -t awesome:build -f .build/Dockerfile .
-
-# Other targets...
-
-.PHONY: build
-build:
-	docker run --rm -v $(CURDIR):/app -w /app awesome:build go build -o ./dist/main ./src
-
-# Rest of the targets...
+build-docker:  ## Build a docker image named awesome:build
+	docker build -t awesome:build ./.build
