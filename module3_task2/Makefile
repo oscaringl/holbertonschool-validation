@@ -10,14 +10,14 @@ run:            ## Run the application in background, and write logs into a file
 	./awesome-api > ./awesome-api.log 2>&1 &
 
 lint:           ## Does the linting of the program using golangci-lint
-	/root/go/bin/golangci-lint run
+	markdownlint DEPLOY.md
 
 stop:           ## Stop the application
 	pkill awesome-api
 
 clean:          ## Cleanup the content of the directory dist/ and stop the application. Delete the binary awesome-api and the log file awesome-api.log
 	pkill awesome-api || true
-	rm -rf awesome-api awesome-api.log coverage-units.out coverage-integrations.out
+	rm -rf awesome-api awesome-api.log coverage-units.out coverage-integrations.out awesome-website.zip
 	rm -rf dist/*
 
 post:           ## Create a new blog post
@@ -41,3 +41,7 @@ check:         ## Check if there are dead link or a badly written Markdown file
 
 validate:      ## look if the generated HTML respects the W3C syntax
 	python3 /opt/W3C-Validator/w3c_validator.py ./dist/index.html || true
+
+package:    ## produces a file awesome-website.zip, containing the binary awesome-api and the directory dist/ directory
+	make build
+	zip awesome-website.zip awesome-api dist/
