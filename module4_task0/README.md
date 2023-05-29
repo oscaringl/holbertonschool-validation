@@ -46,7 +46,7 @@ Create a new workflow named module3_task1 with only the following steps:
 - Position yourself in the correct directory and execute the command make help to validate that the Makefile is present and implements the help and build targets.
 
 This workflow must be triggered:
-- Generate an archive when triggered by a tag
+- Generate a changelog based on the merged Pull Request’s titles, since the previous release
 - Create a release with the archive and content of DEPLOY.md when triggered by a tag
 - Behave the same as “module3_task2” when triggered by something else than a tag (e.g. archive without version name, and no release)
 - Be enabled in GitHub Actions and must have been run successfully with a tag 1.0.0
